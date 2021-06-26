@@ -8,7 +8,7 @@ namespace Renan.GlassLewis.Infrastructure.Extensions
     {
         public static IServiceCollection AddEntityFrameworkSqlServer(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<GlassLewisDbContext>(
+            services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlServer(connectionString));
             return services;
         }
