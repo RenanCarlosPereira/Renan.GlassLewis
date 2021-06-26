@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
+using Renan.GlassLewis.Infrastructure.Extensions;
 
 namespace Renan.GlassLewis.WebApi
 {
@@ -21,6 +22,8 @@ namespace Renan.GlassLewis.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEntityFrameworkSqlServer("Data Source=localhost, 1433;User ID=sa;Password=Clear!00");
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
