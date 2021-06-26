@@ -3,9 +3,84 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{360781A8-8A0E-4B1A-A092-F28963ED3CB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Domain", "src\Renan.GlassLewis.Domain\Renan.GlassLewis.Domain.csproj", "{341C5976-A63A-41AD-B352-99BB9C0BF57F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Infrastructure", "src\Renan.GlassLewis.Infrastructure\Renan.GlassLewis.Infrastructure.csproj", "{253CC4DE-33AE-4E17-AEA7-0D337D316349}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Service", "src\Renan.GlassLewis.Service\Renan.GlassLewis.Service.csproj", "{F964D2BC-F31C-44F1-BA36-012AA4D93F92}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\Renan.GlassLewis.Docker\docker-compose.dcproj", "{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.WebApi", "src\Renan.GlassLewis.WebApi\Renan.GlassLewis.WebApi.csproj", "{44799631-AAAA-4EAA-97AA-8218A3B3006A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renan.GlassLewis.Domain.Tests", "test\Renan.GlassLewis.Domain.Tests\Renan.GlassLewis.Domain.Tests.csproj", "{D835C8B1-4006-4178-94BB-019A5A3F0349}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Infrastructure.Tests", "test\Renan.GlassLewis.Infrastructure.Tests\Renan.GlassLewis.Infrastructure.Tests.csproj", "{FF59E0C3-83A4-4A54-8487-573097D09567}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Service.Tests", "test\Renan.GlassLewis.Service.Tests\Renan.GlassLewis.Service.Tests.csproj", "{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.WebApi.Tests", "test\Renan.GlassLewis.WebApi.Tests\Renan.GlassLewis.WebApi.Tests.csproj", "{16245C61-3A6C-4341-BB89-0847F51C00FE}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{341C5976-A63A-41AD-B352-99BB9C0BF57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{341C5976-A63A-41AD-B352-99BB9C0BF57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{341C5976-A63A-41AD-B352-99BB9C0BF57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{341C5976-A63A-41AD-B352-99BB9C0BF57F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{253CC4DE-33AE-4E17-AEA7-0D337D316349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{253CC4DE-33AE-4E17-AEA7-0D337D316349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{253CC4DE-33AE-4E17-AEA7-0D337D316349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{253CC4DE-33AE-4E17-AEA7-0D337D316349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F964D2BC-F31C-44F1-BA36-012AA4D93F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F964D2BC-F31C-44F1-BA36-012AA4D93F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F964D2BC-F31C-44F1-BA36-012AA4D93F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F964D2BC-F31C-44F1-BA36-012AA4D93F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44799631-AAAA-4EAA-97AA-8218A3B3006A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44799631-AAAA-4EAA-97AA-8218A3B3006A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44799631-AAAA-4EAA-97AA-8218A3B3006A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44799631-AAAA-4EAA-97AA-8218A3B3006A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D835C8B1-4006-4178-94BB-019A5A3F0349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D835C8B1-4006-4178-94BB-019A5A3F0349}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D835C8B1-4006-4178-94BB-019A5A3F0349}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D835C8B1-4006-4178-94BB-019A5A3F0349}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF59E0C3-83A4-4A54-8487-573097D09567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF59E0C3-83A4-4A54-8487-573097D09567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF59E0C3-83A4-4A54-8487-573097D09567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF59E0C3-83A4-4A54-8487-573097D09567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{341C5976-A63A-41AD-B352-99BB9C0BF57F} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
+		{253CC4DE-33AE-4E17-AEA7-0D337D316349} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
+		{F964D2BC-F31C-44F1-BA36-012AA4D93F92} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
+		{A78CB435-30FE-40FE-AEB7-3BA52BFAA8D3} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
+		{44799631-AAAA-4EAA-97AA-8218A3B3006A} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
+		{D835C8B1-4006-4178-94BB-019A5A3F0349} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
+		{FF59E0C3-83A4-4A54-8487-573097D09567} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
+		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
+		{16245C61-3A6C-4341-BB89-0847F51C00FE} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {915DE3AF-9B8E-49E7-91B9-3857E4067C50}

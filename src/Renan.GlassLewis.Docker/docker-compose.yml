@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  renan.glasslewis.webapi:
+    image: ${DOCKER_REGISTRY-}renanglasslewiswebapi
+    build:
+      context: .
+      dockerfile: ../Renan.GlassLewis.WebApi/Dockerfile
