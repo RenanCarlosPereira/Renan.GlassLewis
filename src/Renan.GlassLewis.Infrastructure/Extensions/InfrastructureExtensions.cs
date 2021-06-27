@@ -16,7 +16,6 @@ namespace Renan.GlassLewis.Infrastructure.Extensions
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlServer(connectionString));
 
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             return services;

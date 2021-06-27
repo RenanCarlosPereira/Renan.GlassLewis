@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using Renan.GlassLewis.Domain.Extensions;
 using Renan.GlassLewis.Infrastructure.Extensions;
 using Renan.GlassLewis.Service.Extentions;
+using System;
 
 namespace Renan.GlassLewis.WebApi
 {
@@ -23,16 +24,36 @@ namespace Renan.GlassLewis.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDomainServices();
-            services.AddApplication();
+            services.AddApplication(Configuration);
             services.AddEntityFrameworkSqlServer("Data Source=glasslewis-sqlserver;User ID=sa;Database=glassLewis;Password=Glass@#2021");
-
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            //  .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAd"));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Renan.GlassLewis.WebApi", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer {token}\"",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
             });
         }
 
@@ -50,8 +71,8 @@ namespace Renan.GlassLewis.WebApi
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

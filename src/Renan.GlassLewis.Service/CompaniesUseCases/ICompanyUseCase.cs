@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
+using Renan.GlassLewis.Service.CompaniesUseCases.Models;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Renan.GlassLewis.Service.CompaniesUseCases.Models;
 
 namespace Renan.GlassLewis.Service.CompaniesUseCases
 {
@@ -15,6 +15,7 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
         ValueTask<ValidationResult> UpdateCompanyAsync(int id, UpdateCompanyModel model, CancellationToken cancellationToken = default);
 
         ValueTask<SelectCompanyModel> GetByIdAsync(int id, CancellationToken cancellationToken);
+
         IAsyncEnumerable<SelectCompanyModel> GetAllCompaniesAsync(CancellationToken cancellationToken);
     }
 }

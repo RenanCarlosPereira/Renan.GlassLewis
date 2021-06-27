@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Renan.GlassLewis.Service.CompaniesUseCases;
 using Renan.GlassLewis.Service.CompaniesUseCases.Models;
@@ -10,6 +11,7 @@ namespace Renan.GlassLewis.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class CompanyController : ControllerBase
     {
         private readonly ICompanyUseCase _companyUseCase;

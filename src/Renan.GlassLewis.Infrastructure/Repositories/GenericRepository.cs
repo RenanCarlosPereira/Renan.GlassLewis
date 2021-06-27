@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Renan.GlassLewis.Infrastructure.Repositories
 {
-    internal class GenericRepository<T> : IGenericRepository<T> where T : class
+    internal abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ApplicationContext Context;
         protected readonly DbSet<T> DbSet;
 
-        public GenericRepository(ApplicationContext context)
+        protected GenericRepository(ApplicationContext context)
         {
             Context = context;
             DbSet = Context.Set<T>();

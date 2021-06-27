@@ -30,32 +30,29 @@ namespace Renan.GlassLewis.Domain.Tests.Company
         [Fact]
         public async Task GetAllCompanies_ShouldReciveAllCompaniesFromRepository()
         {
+            // Arrange
             var service = CreateService();
-
             var companies = _fixture.CreateMany<CompanyEntity>().ToList();
+            _companyRepository.GetAllAsync().Returns(companies.ToAsyncEnumerable());
 
-            _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
+            //Act
+            var result = await service.GetAllCompanies().ToListAsync(CancellationToken.None);
 
-            var result = service.GetAllCompanies();
-
-            var count = await result.CountAsync(CancellationToken.None);
-            companies.Should().HaveCount(count);
+            //Assert
+            result.Should().BeEquivalentTo(companies);
         }
 
         [Fact]
-        public async Task FindCompanyByIsinAsync_ReturnsData_WhenExists()
+        public async Task FindCompanyByIsinAsync_WhenExists_ReturnsData()
         {
             // Arrange
             var service = CreateService();
-
             var companies = _fixture.CreateMany<CompanyEntity>().ToList();
-
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
+                .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
+            var company = companies.First();
 
             // Act
-            var company = companies.FirstOrDefault();
             var result = await service.GetByIsinAsync(company?.Isin, CancellationToken.None);
 
             // Assert
@@ -63,7 +60,7 @@ namespace Renan.GlassLewis.Domain.Tests.Company
         }
 
         [Fact]
-        public async Task FindCompanyByIsinAsync_ReturnsNull_WhenNotExists()
+        public async Task FindCompanyByIsinAsync_WhenNotExists_ReturnNull()
         {
             // Arrange
             var service = CreateService();
@@ -90,7 +87,7 @@ namespace Renan.GlassLewis.Domain.Tests.Company
             var companies = _fixture.CreateMany<CompanyEntity>().ToList();
 
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
+                .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
 
             // Act
             var company = companies.First();
@@ -101,12 +98,10 @@ namespace Renan.GlassLewis.Domain.Tests.Company
         }
 
         [Fact]
-        public async Task FindCompanyByIdAsync_ReturnsNull_WhenNotExists()
+        public async Task FindCompanyByIdAsync_WhenNotExists_ReturnsNull()
         {
             // Arrange
             var service = CreateService();
-
-            var companies = _fixture.CreateMany<CompanyEntity>().ToList();
 
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
                 .Returns(Array.Empty<CompanyEntity>().ToAsyncEnumerable());
@@ -120,15 +115,17 @@ namespace Renan.GlassLewis.Domain.Tests.Company
         }
 
         [Fact]
-        public async Task CreateCompany_ShouldNotAllowCreateCompany_WhenIsinAlreadyExists()
+        public async Task CreateCompany_WhenIsinAlreadyExists_NotAllowCreateCompany()
         {
             // Arrange
             var service = CreateService();
 
+            var companies = _fixture.CreateMany<CompanyEntity>().ToList();
             var company = _fixture.Create<CompanyEntity>();
+            company.Isin = companies.First().Isin;
 
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(new[] { company }.ToAsyncEnumerable());
+                .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
 
             // Act
             var result = await service.CreateCompanyAsync(company, CancellationToken.None);
@@ -137,11 +134,11 @@ namespace Renan.GlassLewis.Domain.Tests.Company
             result.Errors.Select(x => x.ErrorMessage).Should()
                 .Contain(CompanyConstants.CompanyWithSameIsinAlreadyExists);
 
-            await _companyRepository.DidNotReceive().AddAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
+            await _companyRepository.DidNotReceiveWithAnyArgs().AddAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
         }
 
         [Fact]
-        public async Task CreateCompany_ShouldCreateCompany_WhenIsinDoesNotExists()
+        public async Task CreateCompany_WhenIsinDoesNotExists_CreateCompany()
         {
             // Arrange
             var service = CreateService();
@@ -155,18 +152,18 @@ namespace Renan.GlassLewis.Domain.Tests.Company
 
             // Assert
             result.IsValid.Should().BeTrue();
-            await _companyRepository.Received(1).AddAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
+            await _companyRepository.ReceivedWithAnyArgs(1).AddAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
         }
 
         [Fact]
-        public async Task UpdateCompany_ShouldUpdateCompany_WhenExists()
+        public async Task UpdateCompany_WhenExists_UpdateCompany()
         {
             // Arrange
             var service = CreateService();
 
             var companies = _fixture.CreateMany<CompanyEntity>().ToList();
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
+                .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
 
             var company = companies.First();
 
@@ -175,56 +172,35 @@ namespace Renan.GlassLewis.Domain.Tests.Company
 
             // Assert
             result.IsValid.Should().BeTrue();
-            await _companyRepository.Received(1).UpdateAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
+            await _companyRepository.ReceivedWithAnyArgs(1).UpdateAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
         }
 
-
         [Fact]
-        public async Task UpdateCompany_ShouldNotUpdateIfTheresADuplicatedIsin()
+        public async Task UpdateCompany_WhenDuplicateIsin_NotUpdate()
         {
             // Arrange
             var service = CreateService();
 
             var companies = _fixture.CreateMany<CompanyEntity>().ToList();
-            _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
-
-            var company = _fixture.Build<CompanyEntity>()
-                .With(x => x.Id, companies.First().Id)
-                .With(x => x.Exchange)
-                .With(x => x.Isin)
-                .With(x => x.WebSite).Create();
-
-            // Act
-            var result = await service.UpdateCompanyAsync(company, CancellationToken.None);
-
-            // Assert
-            result.IsValid.Should().BeTrue();
-            await _companyRepository.Received(1).UpdateAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
-        }
-
-        [Fact]
-        public async Task UpdateCompany_ShouldNotUpdateIfTheresADuplicatedIsinn()
-        {
-            // Arrange
-            var service = CreateService();
-
-            var companies = _fixture.CreateMany<CompanyEntity>().ToList();
-            _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
-                .Returns(companies.ToAsyncEnumerable());
 
             var company = _fixture.Build<CompanyEntity>()
                 .With(x => x.Id, 10)
                 .With(x => x.Exchange)
-                .With(x => companies.First().Isin)
+                .With(x => x.Isin, companies.First().Isin)
                 .With(x => x.WebSite).Create();
+
+            companies.Add(company);
+
+            _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
+                .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
 
             // Act
             var result = await service.UpdateCompanyAsync(company, CancellationToken.None);
 
             // Assert
-            result.IsValid.Should().BeTrue();
-            await _companyRepository.Received(1).UpdateAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
+            result.IsValid.Should().BeFalse();
+            result.Errors.Select(x => x.ErrorMessage).Should().Contain(CompanyConstants.CompanyWithSameIsinAlreadyExists);
+            await _companyRepository.DidNotReceiveWithAnyArgs().UpdateAsync(Arg.Any<CompanyEntity>(), Arg.Any<CancellationToken>());
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Renan.GlassLewis.Infrastructure.DbContexts
 {
     internal class ApplicationContext : DbContext
     {
-        private DbSet<CompanyEntity> Companies { get; set; }
+        public DbSet<CompanyEntity> Companies { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {

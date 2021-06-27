@@ -58,8 +58,8 @@ namespace Renan.GlassLewis.Domain.Company
                 result.Errors.Add(new ValidationFailure(nameof(CompanyIsin), CompanyConstants.CompanyIdMustExist));
                 return result;
             }
-            var exists =  await _companyRepository.FindAsync(x => x.Id != company.Id && x.Isin.Isin == company.Isin.Isin).AnyAsync(cancellationToken);
-            
+            var exists = await _companyRepository.FindAsync(x => x.Id != company.Id && x.Isin.Isin == company.Isin.Isin).AnyAsync(cancellationToken);
+
             if (exists)
             {
                 result.Errors.Add(new ValidationFailure(nameof(CompanyIsin), CompanyConstants.CompanyWithSameIsinAlreadyExists));
