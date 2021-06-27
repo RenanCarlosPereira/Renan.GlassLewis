@@ -1,23 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Renan.GlassLewis.Domain.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        T GetById(int id);
+        ValueTask<T> GetByIdAsync(int id, CancellationToken cancellationToken = default);
 
-        IEnumerable<T> GetAll();
+        IAsyncEnumerable<T> GetAllAsync();
 
-        IEnumerable<T> Find(Expression<Func<T, bool>> expression);
+        IAsyncEnumerable<T> FindAsync(Expression<Func<T, bool>> expression);
 
-        void Add(T entity);
+        ValueTask<T> AddAsync(T entity, CancellationToken cancellationToken = default);
 
-        void AddRange(IEnumerable<T> entities);
+        ValueTask<T> UpdateAsync(T entity, CancellationToken cancellationToken = default);
 
-        void Remove(T entity);
+        Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
 
-        void RemoveRange(IEnumerable<T> entities);
+        ValueTask RemoveAsync(T entity, CancellationToken cancellationToken = default);
+
+        ValueTask RemoveRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default);
     }
 }

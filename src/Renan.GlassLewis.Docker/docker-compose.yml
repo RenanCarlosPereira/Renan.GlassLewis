@@ -3,6 +3,20 @@ version: '3.4'
 services:
   renan.glasslewis.webapi:
     image: ${DOCKER_REGISTRY-}renanglasslewiswebapi
+    hostname: glasslewis-webapi
     build:
       context: .
       dockerfile: ../Renan.GlassLewis.WebApi/Dockerfile
+
+  renan.glasslewis.sqlserver:
+    container_name: glasslewis-sqlserver
+    hostname: glasslewis-sqlserver
+    image: mcr.microsoft.com/mssql/server
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=Glass@#2021
+        - MSSQL_PID=Express
+    ports:
+        - 1433:1433
+    volumes:
+        - .data:/var/opt/mssql/data

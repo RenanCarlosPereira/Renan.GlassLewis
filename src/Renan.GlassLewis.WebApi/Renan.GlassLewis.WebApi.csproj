@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.4" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.1.0" />
@@ -17,6 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Renan.GlassLewis.Infrastructure\Renan.GlassLewis.Infrastructure.csproj" />
+    <ProjectReference Include="..\Renan.GlassLewis.Service\Renan.GlassLewis.Service.csproj" />
   </ItemGroup>
+
 
 </Project>

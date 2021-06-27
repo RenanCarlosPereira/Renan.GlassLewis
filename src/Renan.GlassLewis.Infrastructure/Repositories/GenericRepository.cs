@@ -1,54 +1,67 @@
-﻿using Renan.GlassLewis.Domain.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using Renan.GlassLewis.Domain.Repositories;
 using Renan.GlassLewis.Infrastructure.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Renan.GlassLewis.Infrastructure.Repositories
 {
     internal class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly ApplicationContext Context;
+        protected readonly DbSet<T> DbSet;
 
         public GenericRepository(ApplicationContext context)
         {
             Context = context;
+            DbSet = Context.Set<T>();
         }
 
-        public void Add(T entity)
+        public ValueTask<T> GetByIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            Context.Set<T>().Add(entity);
+            return DbSet.FindAsync(id, cancellationToken);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public IAsyncEnumerable<T> GetAllAsync()
         {
-            Context.Set<T>().AddRange(entities);
+            return DbSet.AsAsyncEnumerable();
         }
 
-        public IEnumerable<T> Find(Expression<Func<T, bool>> expression)
+        public IAsyncEnumerable<T> FindAsync(Expression<Func<T, bool>> expression)
         {
-            return Context.Set<T>().Where(expression);
+            return DbSet.Where(expression).AsAsyncEnumerable();
         }
 
-        public IEnumerable<T> GetAll()
+        public async ValueTask<T> AddAsync(T entity, CancellationToken cancellationToken = default)
         {
-            return Context.Set<T>().ToList();
+            return (await DbSet.AddAsync(entity, cancellationToken)).Entity;
         }
 
-        public T GetById(int id)
+        public ValueTask<T> UpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            return Context.Set<T>().Find(id);
+            var entry = DbSet.Update(entity);
+            return ValueTask.FromResult(entry.Entity);
         }
 
-        public void Remove(T entity)
+        public Task AddRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
         {
-            Context.Set<T>().Remove(entity);
+            return DbSet.AddRangeAsync(entities, cancellationToken);
         }
 
-        public void RemoveRange(IEnumerable<T> entities)
+        public ValueTask RemoveAsync(T entity, CancellationToken cancellationToken = default)
         {
-            Context.Set<T>().RemoveRange(entities);
+            DbSet.Remove(entity);
+            return ValueTask.CompletedTask;
+        }
+
+        public ValueTask RemoveRangeAsync(IEnumerable<T> entities, CancellationToken cancellationToken = default)
+        {
+            DbSet.RemoveRange(entities);
+            return ValueTask.CompletedTask;
         }
     }
 }
