@@ -93,7 +93,7 @@ namespace Renan.GlassLewis.Integrated.Tests
         }
 
         [Fact]
-        public async Task GetCompany()
+        public async Task GetCompanyById()
         {
             var (model, uri) = await CreateCompany();
 
@@ -123,5 +123,23 @@ namespace Renan.GlassLewis.Integrated.Tests
 
             httpResponse.IsSuccessStatusCode.Should().BeTrue();
         }
+
+        [Fact]
+        public async Task GetByIsinAsync()
+        {
+            var (model, uri) = await CreateCompany();
+
+            var httpResponse = await _httpClient.GetAsync($"/Company/isin/{model.Isin}");
+
+            await using var stream = await httpResponse.Content.ReadAsStreamAsync();
+
+            httpResponse.IsSuccessStatusCode.Should().BeTrue();
+
+            var data = await JsonSerializer.DeserializeAsync<SelectCompanyModel>(stream);
+
+            data?.Isin.Should().Be(model.Isin);
+        }
+
+        
     }
 }
