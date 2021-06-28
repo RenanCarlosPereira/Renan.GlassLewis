@@ -56,7 +56,7 @@ namespace Renan.GlassLewis.Infrastructure.Tests.Repositories
 
             // Act
             var company = companies.First();
-            var result = companyRepository.FindAsync(x => x.Isin.Isin == company.Isin.Isin);
+            var result = companyRepository.FindAsync(x => x.Isin.Value == company.Isin.Value);
 
             // Assert
             var count = await result.CountAsync();

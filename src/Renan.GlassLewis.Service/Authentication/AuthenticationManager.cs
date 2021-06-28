@@ -11,9 +11,9 @@ namespace Renan.GlassLewis.Service.Authentication
 {
     internal class AuthenticationManager : IAuthenticationManager
     {
-        private readonly List<AuthenticationRequest> _users = new List<AuthenticationRequest>
+        private static readonly List<AuthenticationRequest> _users = new List<AuthenticationRequest>
         {
-            new AuthenticationRequest { Id = 1, Username = "GlassLewis", Password = "123" }
+            new AuthenticationRequest { Username = "GlassLewis", Password = "123" }
         };
 
         private readonly JwtOptions _jwtOptions;
@@ -35,7 +35,7 @@ namespace Renan.GlassLewis.Service.Authentication
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, user.Id.ToString())
+                    new Claim(ClaimTypes.Name, user.Username)
                 }),
 
                 Expires = DateTime.UtcNow.AddDays(7),

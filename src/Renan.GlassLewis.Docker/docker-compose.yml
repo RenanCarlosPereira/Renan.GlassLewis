@@ -8,6 +8,13 @@ services:
       context: .
       dockerfile: ../Renan.GlassLewis.WebApi/Dockerfile
 
+  renan.glasslewis.mvc:
+    image: ${DOCKER_REGISTRY-}renanglasslewismvc
+    hostname: glasslewis-mvc
+    build:
+      context: .
+      dockerfile: ../Renan.GlassLewis.Mvc/Dockerfile
+
   renan.glasslewis.sqlserver:
     container_name: glasslewis-sqlserver
     hostname: glasslewis-sqlserver

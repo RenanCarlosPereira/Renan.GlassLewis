@@ -31,6 +31,9 @@ namespace Renan.GlassLewis.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Ticker")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("WebSite")
                         .HasColumnType("nvarchar(max)");
 
@@ -48,7 +51,7 @@ namespace Renan.GlassLewis.Infrastructure.Migrations
                                 .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Isin")
+                            b1.Property<string>("Value")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("CompanyEntityId");

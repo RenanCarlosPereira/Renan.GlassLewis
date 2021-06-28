@@ -3,7 +3,6 @@ using Renan.GlassLewis.Domain.Company;
 using Renan.GlassLewis.Domain.Repositories;
 using Renan.GlassLewis.Service.CompaniesUseCases.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,11 +24,11 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
         {
             var isin = new CompanyIsin(model.Isin);
 
-            var result = isin.Validate();
+            var company = new CompanyEntity(model.Name, model.Exchange, isin, model.WebSite, model.Ticker);
+
+            var result = company.Validate();
 
             if (!result.IsValid) return result;
-
-            var company = new CompanyEntity(model.Name, model.Exchange, isin, model.WebSite);
 
             result = await _domainService.CreateCompanyAsync(company, cancellationToken);
 
@@ -42,24 +41,13 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
 
         public async ValueTask<ValidationResult> UpdateCompanyAsync(int id, UpdateCompanyModel model, CancellationToken cancellationToken = default)
         {
-            var result = new ValidationResult();
-            var company = await _domainService.GetByIdAsync(id, cancellationToken);
-            if (company == null)
-            {
-                result.Errors.Add(new ValidationFailure(nameof(CompanyEntity.Id), CompanyConstants.CompanyIdMustExist));
-                return result;
-            }
-
-            company.Name = model.Name;
-            company.Isin = new CompanyIsin(model.Isin);
-            company.WebSite = model.WebSite;
-            company.Exchange = model.Exchange;
-
-            result = company.Isin.Validate();
+            var company = new CompanyEntity(model.Name, model.Exchange, new CompanyIsin(model.Isin), model.WebSite, model.Ticker);
+            
+            var result = company.Validate();
 
             if (!result.IsValid) return result;
 
-            result = await _domainService.UpdateCompanyAsync(company, cancellationToken);
+            result = await _domainService.UpdateCompanyAsync(id, company, cancellationToken);
 
             if (result.IsValid)
                 await _unitOfWork.CompleteAsync(cancellationToken);
@@ -69,15 +57,9 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
 
         public async ValueTask<SelectCompanyModel> GetByIdAsync(int id, CancellationToken cancellationToken)
         {
-            var result = await _domainService.GetByIdAsync(id, cancellationToken);
+            var company = await _domainService.GetByIdAsync(id, cancellationToken);
 
-            var companyModel = new SelectCompanyModel
-            {
-                Isin = result.Isin.Isin,
-                Exchange = result.Exchange,
-                Name = result.Name,
-                WebSite = result.WebSite
-            };
+            var companyModel = Map(company);
 
             return companyModel;
         }
@@ -87,13 +69,7 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
             var companies = _domainService.GetAllCompanies();
             await foreach (var company in companies.WithCancellation(cancellationToken))
             {
-                yield return new SelectCompanyModel
-                {
-                    Isin = company.Isin.Isin,
-                    Exchange = company.Exchange,
-                    Name = company.Name,
-                    WebSite = company.WebSite
-                };
+                yield return Map(company);
             }
         }
 
@@ -101,19 +77,26 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
         {
             var companyIsin = new CompanyIsin(isin);
 
-            var result = await _domainService.GetByIsinAsync(companyIsin, cancellationToken);
+            var company = await _domainService.GetByIsinAsync(companyIsin, cancellationToken);
 
-            if (result == null) return null;
+            if (company == null) return null;
 
-            var companyModel = new SelectCompanyModel
-            {
-                Isin = result.Isin.Isin,
-                Exchange = result.Exchange,
-                Name = result.Name,
-                WebSite = result.WebSite
-            };
+            var companyModel = Map(company);
 
             return companyModel;
+        }
+
+        private static SelectCompanyModel Map(CompanyEntity company)
+        {
+            return new SelectCompanyModel
+            {
+                Id = company.Id,
+                Isin = company.Isin.Value,
+                Exchange = company.Exchange,
+                Name = company.Name,
+                WebSite = company.WebSite,
+                Ticker = company.Ticker
+            };
         }
     }
 }

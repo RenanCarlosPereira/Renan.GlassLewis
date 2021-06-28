@@ -17,13 +17,15 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "src\Renan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.WebApi", "src\Renan.GlassLewis.WebApi\Renan.GlassLewis.WebApi.csproj", "{44799631-AAAA-4EAA-97AA-8218A3B3006A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renan.GlassLewis.Domain.Tests", "test\Renan.GlassLewis.Domain.Tests\Renan.GlassLewis.Domain.Tests.csproj", "{D835C8B1-4006-4178-94BB-019A5A3F0349}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Domain.Tests", "test\Renan.GlassLewis.Domain.Tests\Renan.GlassLewis.Domain.Tests.csproj", "{D835C8B1-4006-4178-94BB-019A5A3F0349}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Infrastructure.Tests", "test\Renan.GlassLewis.Infrastructure.Tests\Renan.GlassLewis.Infrastructure.Tests.csproj", "{FF59E0C3-83A4-4A54-8487-573097D09567}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Service.Tests", "test\Renan.GlassLewis.Service.Tests\Renan.GlassLewis.Service.Tests.csproj", "{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.WebApi.Tests", "test\Renan.GlassLewis.WebApi.Tests\Renan.GlassLewis.WebApi.Tests.csproj", "{16245C61-3A6C-4341-BB89-0847F51C00FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Renan.GlassLewis.Mvc", "src\Renan.GlassLewis.Mvc\Renan.GlassLewis.Mvc.csproj", "{D7E882BD-9FD6-4165-A38B-40E60873F45D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +69,10 @@ Global
 		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16245C61-3A6C-4341-BB89-0847F51C00FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7E882BD-9FD6-4165-A38B-40E60873F45D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7E882BD-9FD6-4165-A38B-40E60873F45D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7E882BD-9FD6-4165-A38B-40E60873F45D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7E882BD-9FD6-4165-A38B-40E60873F45D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -81,6 +87,7 @@ Global
 		{FF59E0C3-83A4-4A54-8487-573097D09567} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
 		{8E73F485-009F-4D01-9BBD-2C78D2AA3EAF} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
 		{16245C61-3A6C-4341-BB89-0847F51C00FE} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
+		{D7E882BD-9FD6-4165-A38B-40E60873F45D} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {915DE3AF-9B8E-49E7-91B9-3857E4067C50}

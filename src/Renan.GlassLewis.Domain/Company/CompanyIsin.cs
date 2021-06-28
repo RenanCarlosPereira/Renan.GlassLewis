@@ -4,30 +4,30 @@ namespace Renan.GlassLewis.Domain.Company
 {
     public class CompanyIsin
     {
-        public CompanyIsin(string isin)
+        public CompanyIsin(string value)
         {
-            Isin = isin;
+            Value = value;
         }
 
         private CompanyIsin()
         {
         }
 
-        public int CompanyEntityId { get; set; }
-        public string Isin { get; set; }
+        //public int CompanyEntityId { get; set; }
+        public string Value { get; set; }
 
         public ValidationResult Validate()
         {
             var result = new ValidationResult();
 
-            if (string.IsNullOrWhiteSpace(Isin))
-                result.Errors.Add(new ValidationFailure(nameof(CompanyIsin), CompanyConstants.CompanyIsinMustHaveValue));
+            if (string.IsNullOrWhiteSpace(Value))
+                result.Errors.Add(new ValidationFailure(nameof(CompanyEntity.Isin), CompanyConstants.CompanyIsinMustHaveValue));
 
-            if (Isin?.Length < 2)
-                result.Errors.Add(new ValidationFailure(nameof(CompanyIsin), CompanyConstants.CompanyIsinMustBeGreaterThenTwoChars));
+            if (Value?.Length < 2)
+                result.Errors.Add(new ValidationFailure(nameof(CompanyEntity.Isin), CompanyConstants.CompanyIsinMustBeGreaterThenTwoChars));
 
-            if (Isin?.Length > 2 && (!char.IsLetter(Isin!, 0) || !char.IsLetter(Isin!, 1)))
-                result.Errors.Add(new ValidationFailure(nameof(CompanyIsin), CompanyConstants.CompanyIsinMustStartWithTwoLetter));
+            if (Value?.Length >= 2 && (!char.IsLetter(Value!, 0) || !char.IsLetter(Value!, 1)))
+                result.Errors.Add(new ValidationFailure(nameof(CompanyEntity.Isin), CompanyConstants.CompanyIsinMustStartWithTwoLetter));
 
             return result;
         }

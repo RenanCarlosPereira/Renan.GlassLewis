@@ -12,6 +12,7 @@ namespace Renan.GlassLewis.Domain.Tests.Company
         [InlineData(" ", CompanyConstants.CompanyIsinMustHaveValue)]
         [InlineData(null, CompanyConstants.CompanyIsinMustHaveValue)]
         [InlineData("A", CompanyConstants.CompanyIsinMustBeGreaterThenTwoChars)]
+        [InlineData("12", CompanyConstants.CompanyIsinMustStartWithTwoLetter)]
         [InlineData("123456", CompanyConstants.CompanyIsinMustStartWithTwoLetter)]
         [InlineData("A123456", CompanyConstants.CompanyIsinMustStartWithTwoLetter)]
         [InlineData("#$%123456", CompanyConstants.CompanyIsinMustStartWithTwoLetter)]

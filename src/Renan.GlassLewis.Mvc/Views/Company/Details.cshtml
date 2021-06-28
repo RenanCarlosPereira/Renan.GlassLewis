@@ -1,0 +1,54 @@
+﻿@model Renan.GlassLewis.Service.CompaniesUseCases.Models.SelectCompanyModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>SelectCompanyModel</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Exchange)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Exchange)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Isin)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Isin)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WebSite)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WebSite)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ticker)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ticker)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

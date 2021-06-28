@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Renan.GlassLewis.Domain.Company;
+using Renan.GlassLewis.Infrastructure.EntityTypeConfigurations;
 
 namespace Renan.GlassLewis.Infrastructure.DbContexts
 {
@@ -17,26 +16,6 @@ namespace Renan.GlassLewis.Infrastructure.DbContexts
         {
             modelBuilder.ApplyConfiguration(new CompanyTypeConfiguration());
             base.OnModelCreating(modelBuilder);
-        }
-    }
-
-    internal class ApplicationContextContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
-    {
-        public ApplicationContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
-            optionsBuilder.UseSqlServer();
-
-            return new ApplicationContext(optionsBuilder.Options);
-        }
-    }
-
-    public class CompanyTypeConfiguration : IEntityTypeConfiguration<CompanyEntity>
-    {
-        public void Configure(EntityTypeBuilder<CompanyEntity> builder)
-        {
-            builder.HasKey(x => x.Id);
-            builder.OwnsOne(x => x.Isin);
         }
     }
 }

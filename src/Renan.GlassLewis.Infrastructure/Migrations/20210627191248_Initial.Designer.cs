@@ -9,7 +9,7 @@ using Renan.GlassLewis.Infrastructure.DbContexts;
 namespace Renan.GlassLewis.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210627082730_Initial")]
+    [Migration("20210627191248_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,9 @@ namespace Renan.GlassLewis.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Ticker")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("WebSite")
                         .HasColumnType("nvarchar(max)");
 
@@ -50,7 +53,7 @@ namespace Renan.GlassLewis.Infrastructure.Migrations
                                 .HasColumnType("int")
                                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                            b1.Property<string>("Isin")
+                            b1.Property<string>("Value")
                                 .HasColumnType("nvarchar(max)");
 
                             b1.HasKey("CompanyEntityId");

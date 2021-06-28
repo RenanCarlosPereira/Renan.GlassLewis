@@ -65,8 +65,6 @@ namespace Renan.GlassLewis.Domain.Tests.Company
             // Arrange
             var service = CreateService();
 
-            var companies = _fixture.CreateMany<CompanyEntity>().ToList();
-
             _companyRepository.FindAsync(Arg.Any<Expression<Func<CompanyEntity, bool>>>())
                 .Returns(Array.Empty<CompanyEntity>().ToAsyncEnumerable());
 
@@ -168,7 +166,7 @@ namespace Renan.GlassLewis.Domain.Tests.Company
             var company = companies.First();
 
             // Act
-            var result = await service.UpdateCompanyAsync(company, CancellationToken.None);
+            var result = await service.UpdateCompanyAsync(company.Id, company, CancellationToken.None);
 
             // Assert
             result.IsValid.Should().BeTrue();
@@ -195,7 +193,7 @@ namespace Renan.GlassLewis.Domain.Tests.Company
                 .Returns(x => companies.Where(x.Arg<Expression<Func<CompanyEntity, bool>>>().Compile()).ToAsyncEnumerable());
 
             // Act
-            var result = await service.UpdateCompanyAsync(company, CancellationToken.None);
+            var result = await service.UpdateCompanyAsync(company.Id, company, CancellationToken.None);
 
             // Assert
             result.IsValid.Should().BeFalse();

@@ -1,17 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Renan.GlassLewis.Domain.Company;
 
 namespace Renan.GlassLewis.Service.CompaniesUseCases.Models
 {
     public class CreateCompanyModel
     {
-        [Required]
+        [Required(ErrorMessage = CompanyConstants.NameIsRequired)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = CompanyConstants.ExchangeIsRequired)]
         public string Exchange { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = CompanyConstants.IsinIsRequired)]
         public string Isin { get; set; }
+
+        [Required(ErrorMessage = CompanyConstants.TickerIsRequired)]
+        public string Ticker { get; set; }
 
         public string WebSite { get; set; }
     }

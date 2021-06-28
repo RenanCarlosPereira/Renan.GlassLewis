@@ -14,7 +14,8 @@ namespace Renan.GlassLewis.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Exchange = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Isin_Isin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Ticker = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Isin_Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     WebSite = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

@@ -30,7 +30,7 @@ namespace Renan.GlassLewis.WebApi.Controllers
             return _companyUseCase.GetAllCompaniesAsync(cancellationToken);
         }
 
-        [HttpGet("Isin/{isin}")]
+        [HttpGet("Value/{isin}")]
         [ActionName(nameof(GetByIsinAsync))]
         public async ValueTask<IActionResult> GetByIsinAsync([FromRoute] string isin, CancellationToken cancellationToken)
         {

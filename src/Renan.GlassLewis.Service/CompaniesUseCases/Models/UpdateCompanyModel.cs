@@ -14,5 +14,7 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases.Models
         public string Isin { get; set; }
 
         public string WebSite { get; set; }
+
+        public string Ticker { get; set; }
     }
 }
