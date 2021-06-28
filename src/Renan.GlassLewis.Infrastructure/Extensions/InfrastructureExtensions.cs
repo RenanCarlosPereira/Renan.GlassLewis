@@ -10,12 +10,15 @@ namespace Renan.GlassLewis.Infrastructure.Extensions
 {
     public static class InfrastructureExtensions
     {
+        private const string DefaultConnectionString =
+            "Server=myServerAddress;Database=myDataBase;Trusted_Connection=True;";
+
         public static IServiceCollection AddEntityFrameworkSqlServer(this IServiceCollection services, string connectionString)
         {
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDbContext<ApplicationContext>(
-                options => options.UseSqlServer(connectionString));
+                options => options.UseSqlServer(connectionString ?? DefaultConnectionString));
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();

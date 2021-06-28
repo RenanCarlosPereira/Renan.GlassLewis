@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Renan.GlassLewis.Domain\Renan.GlassLewis.Domain.csproj" />
+    <ProjectReference Include="..\Renan.GlassLewis.Infrastructure\Renan.GlassLewis.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

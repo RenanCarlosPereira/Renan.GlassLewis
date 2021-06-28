@@ -5,13 +5,17 @@ using Microsoft.IdentityModel.Tokens;
 using Renan.GlassLewis.Application.Authentication;
 using Renan.GlassLewis.Application.CompaniesUseCases;
 using System.Text;
+using Renan.GlassLewis.Domain.Extensions;
+using Renan.GlassLewis.Infrastructure.Extensions;
 
 namespace Renan.GlassLewis.Application.Extentions
 {
     public static class ApplicationExtention
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDomainServices();
+            services.AddEntityFrameworkSqlServer(configuration.GetConnectionString("Glass"));
             services.AddTransient<IAuthenticationManager, AuthenticationManager>();
             services.AddTransient<ICompanyUseCase, CompanyUseCase>();
 

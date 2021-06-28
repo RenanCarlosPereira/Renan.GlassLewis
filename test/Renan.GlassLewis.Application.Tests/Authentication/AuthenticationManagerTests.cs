@@ -64,18 +64,5 @@ namespace Renan.GlassLewis.Application.Tests.Authentication
             result.Should().NotBeNull();
             result.Token.Should().NotBeNullOrWhiteSpace();
         }
-
-        [Fact]
-        public void GetAll_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var manager = this.CreateManager();
-
-            // Act
-            var result = manager.GetAll();
-
-            // Assert
-            Assert.True(false);
-        }
     }
 }

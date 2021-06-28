@@ -23,9 +23,7 @@ namespace Renan.GlassLewis.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDomainServices();
-            services.AddApplication(Configuration);
-            services.AddEntityFrameworkSqlServer(Configuration.GetConnectionString("Glass"));
+            services.AddApplicationServices(Configuration);
 
             services.AddControllers().AddJsonOptions(options =>
                 options.JsonSerializerOptions.PropertyNamingPolicy = null);

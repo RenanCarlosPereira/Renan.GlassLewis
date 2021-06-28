@@ -46,15 +46,5 @@ namespace Renan.GlassLewis.Application.Authentication
 
             return authenticationResponse;
         }
-
-        public IEnumerable<AuthenticationRequest> GetAll()
-        {
-            // return users without passwords
-            return Users.Select(x =>
-            {
-                x.Password = null;
-                return x;
-            });
-        }
     }
 }
