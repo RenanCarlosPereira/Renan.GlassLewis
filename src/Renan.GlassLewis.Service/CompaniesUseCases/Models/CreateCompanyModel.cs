@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Renan.GlassLewis.Domain.Company;
+﻿using Renan.GlassLewis.Domain.Company;
+using System.ComponentModel.DataAnnotations;
 
 namespace Renan.GlassLewis.Service.CompaniesUseCases.Models
 {

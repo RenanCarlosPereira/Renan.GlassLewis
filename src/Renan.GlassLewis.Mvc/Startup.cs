@@ -3,14 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Renan.GlassLewis.Domain.Extensions;
-using Renan.GlassLewis.Infrastructure.Extensions;
-using Renan.GlassLewis.Service.Extentions;
+using System;
 
 namespace Renan.GlassLewis.Mvc
 {
-
-    public class ApiOptions()
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -23,10 +19,15 @@ namespace Renan.GlassLewis.Mvc
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDomainServices();
-            services.AddApplication(Configuration);
-            services.AddEntityFrameworkSqlServer("Data Source=localhost, 1433;User ID=sa;Database=glassLewis;Password=Glass@#2021");
-            services.AddControllersWithViews();
+            var section = Configuration.GetSection(nameof(ApiOption));
+            services.Configure<ApiOption>(section);
+            var apiOption = section.Get<ApiOption>();
+            services.AddHttpClient("Company", x => x.BaseAddress = new Uri(apiOption.Url))
+                .AddHttpMessageHandler<AuthenticationHttpMessageHandler>();
+
+            services.AddTransient<AuthenticationHttpMessageHandler>();
+            services.AddControllersWithViews().AddJsonOptions(options =>
+                options.JsonSerializerOptions.PropertyNamingPolicy = null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +43,7 @@ namespace Renan.GlassLewis.Mvc
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();

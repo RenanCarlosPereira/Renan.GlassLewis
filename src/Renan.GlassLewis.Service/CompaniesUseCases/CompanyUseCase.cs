@@ -42,7 +42,7 @@ namespace Renan.GlassLewis.Service.CompaniesUseCases
         public async ValueTask<ValidationResult> UpdateCompanyAsync(int id, UpdateCompanyModel model, CancellationToken cancellationToken = default)
         {
             var company = new CompanyEntity(model.Name, model.Exchange, new CompanyIsin(model.Isin), model.WebSite, model.Ticker);
-            
+
             var result = company.Validate();
 
             if (!result.IsValid) return result;

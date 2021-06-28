@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Renan.GlassLewis.Service.CompaniesUseCases.Models.SelectCompanyModel>
+﻿@model IEnumerable<SelectCompanyModel>
 
 @{
     ViewData["Title"] = "View";
@@ -34,31 +34,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Exchange)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Isin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WebSite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ticker)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { item.Id }) |
-                @Html.ActionLink("Details", "Details", new { item.Id }) |
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exchange)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Isin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WebSite)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticker)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { item.Id }) |
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

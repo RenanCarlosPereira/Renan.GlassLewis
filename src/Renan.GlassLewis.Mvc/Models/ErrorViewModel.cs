@@ -1,5 +1,3 @@
-using System;
-
 namespace Renan.GlassLewis.Mvc.Models
 {
     public class ErrorViewModel

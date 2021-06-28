@@ -25,9 +25,10 @@ namespace Renan.GlassLewis.WebApi
         {
             services.AddDomainServices();
             services.AddApplication(Configuration);
-            services.AddEntityFrameworkSqlServer("Data Source=glasslewis-sqlserver;User ID=sa;Database=glassLewis;Password=Glass@#2021");
+            services.AddEntityFrameworkSqlServer(Configuration.GetConnectionString("Glass"));
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+                options.JsonSerializerOptions.PropertyNamingPolicy = null);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Renan.GlassLewis.WebApi", Version = "v1" });
@@ -66,8 +67,6 @@ namespace Renan.GlassLewis.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Renan.GlassLewis.WebApi v1"));
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 

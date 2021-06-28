@@ -15,9 +15,9 @@ namespace Renan.GlassLewis.Service.Extentions
             services.AddTransient<IAuthenticationManager, AuthenticationManager>();
             services.AddTransient<ICompanyUseCase, CompanyUseCase>();
 
-            var appSettingsSection = configuration.GetSection("JwtOptions");
-            services.Configure<JwtOptions>(appSettingsSection);
-            var jwtOptions = appSettingsSection.Get<JwtOptions>();
+            var section = configuration.GetSection("JwtOptions");
+            services.Configure<JwtOptions>(section);
+            var jwtOptions = section.Get<JwtOptions>();
 
             services.AddAuthentication(x =>
                 {

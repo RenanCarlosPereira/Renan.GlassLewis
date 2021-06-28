@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Renan.GlassLewis.Service.CompaniesUseCases;
-using Renan.GlassLewis.Service.CompaniesUseCases.Models;
+using Renan.GlassLewis.Mvc.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,25 +13,46 @@ namespace Renan.GlassLewis.Mvc.Controllers
 {
     public class CompanyController : Controller
     {
-        private readonly ICompanyUseCase _companyUseCase;
+        private readonly HttpClient _httpClient;
 
-        public CompanyController(ICompanyUseCase companyUseCase)
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
         {
-            _companyUseCase = companyUseCase;
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+
+        public CompanyController(IHttpClientFactory httpClientFactory)
+        {
+            _httpClient = httpClientFactory.CreateClient("Company");
         }
 
         // GET: CompanyController
         public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
-            var result = await _companyUseCase.GetAllCompaniesAsync(cancellationToken).ToListAsync(cancellationToken);
-            return View(result);
+            var httpResponse = await _httpClient.GetAsync("/Company", cancellationToken);
+
+            await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
+
+            if (!httpResponse.IsSuccessStatusCode)
+                return View(Array.Empty<SelectCompanyModel>());
+
+            var data = await JsonSerializer.DeserializeAsync<List<SelectCompanyModel>>(stream, cancellationToken: cancellationToken);
+
+            return View(data);
         }
 
         // GET: CompanyController/Details/5
         public async Task<ActionResult> Details(int id, CancellationToken cancellationToken)
         {
-            var company = await _companyUseCase.GetByIdAsync(id, cancellationToken);
-            return View(company);
+            var httpResponse = await _httpClient.GetAsync($"/Company/{id}", cancellationToken);
+
+            await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
+
+            if (!httpResponse.IsSuccessStatusCode)
+                return RedirectToAction(nameof(Index));
+
+            var data = await JsonSerializer.DeserializeAsync<SelectCompanyModel>(stream, cancellationToken: cancellationToken);
+
+            return View(data);
         }
 
         // GET: CompanyController/Create
@@ -43,30 +68,45 @@ namespace Renan.GlassLewis.Mvc.Controllers
         {
             try
             {
-                var result = await _companyUseCase.CreateCompanyAsync(model, cancellationToken);
+                var json = JsonSerializer.Serialize(model);
+                using var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var httpResponse = await _httpClient.PostAsync("/Company/Create", content, cancellationToken);
 
-                if (result.IsValid) return RedirectToAction(nameof(Index));
+                await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
 
-                result.Errors.ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
+                if (httpResponse.IsSuccessStatusCode)
+                    return RedirectToAction(nameof(Index));
+
+                var data = await JsonSerializer.DeserializeAsync<BadRequestResponseModel>(stream, JsonSerializerOptions, cancellationToken);
+
+                data?.Errors.ToList().ForEach(x => ModelState.AddModelError(x.Key, string.Concat(x.Value)));
 
                 return View(model);
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
 
         // GET: CompanyController/Edit/5
         public async Task<ActionResult> Edit(int id, CancellationToken cancellationToken)
         {
-            var company = await _companyUseCase.GetByIdAsync(id, cancellationToken);
+            var httpResponse = await _httpClient.GetAsync($"/Company/{id}", cancellationToken);
+
+            await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
+
+            if (!httpResponse.IsSuccessStatusCode)
+                return RedirectToAction(nameof(Index));
+
+            var data = await JsonSerializer.DeserializeAsync<SelectCompanyModel>(stream, cancellationToken: cancellationToken);
+
             var edit = new UpdateCompanyModel
             {
-                Isin = company.Isin,
-                Exchange = company.Exchange,
-                Name = company.Name,
-                Ticker = company.Ticker
+                Isin = data?.Isin,
+                Exchange = data?.Exchange,
+                Name = data?.Name,
+                Ticker = data?.Ticker
             };
 
             return View(edit);
@@ -79,17 +119,23 @@ namespace Renan.GlassLewis.Mvc.Controllers
         {
             try
             {
-                var result = await _companyUseCase.UpdateCompanyAsync(id, model, cancellationToken);
+                var json = JsonSerializer.Serialize(model);
+                using var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var httpResponse = await _httpClient.PostAsync($"/Company/Update/{id}", content, cancellationToken);
 
-                if (result.IsValid) return RedirectToAction(nameof(Index));
+                await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
 
-                result.Errors.ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
+                if (httpResponse.IsSuccessStatusCode) return RedirectToAction(nameof(Index));
+
+                var data = await JsonSerializer.DeserializeAsync<BadRequestResponseModel>(stream, JsonSerializerOptions, cancellationToken);
+
+                data?.Errors.ToList().ForEach(x => ModelState.AddModelError(x.Key, string.Concat(x.Value)));
 
                 return View(model);
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
     }
