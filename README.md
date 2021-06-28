@@ -33,6 +33,12 @@ Sample company records:
 
 Execute the command line bellow in the root directory of the solution.
 
+## Build Image
+```sh
+docker-compose -f .\src\Renan.GlassLewis.Docker\docker-compose.yml -p glass build
+```
+
+## Run
 ```sh
 docker-compose -f .\src\Renan.GlassLewis.Docker\docker-compose.yml -p glass up
 ```
@@ -70,3 +76,15 @@ this route will generate a **Token** this token you must use to authorize swagge
 
 4. Go back to menu company and edit the information you just add with the requeriments of this challange and save it
 
+
+# Runing integrated testes
+
+> Note that dotnet test can be executed foreach project or direct in the solution dir.
+If you choose to run against the solution make sure the application is runing in docker
+
+```sh
+dotnet test
+```
+```sh
+docker-compose -f .\src\Renan.GlassLewis.Docker\docker-compose.yml -p glass up
+```
