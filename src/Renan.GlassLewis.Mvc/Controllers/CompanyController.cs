@@ -106,7 +106,8 @@ namespace Renan.GlassLewis.Mvc.Controllers
                 Isin = data?.Isin,
                 Exchange = data?.Exchange,
                 Name = data?.Name,
-                Ticker = data?.Ticker
+                Ticker = data?.Ticker,
+                WebSite = data?.WebSite
             };
 
             return View(edit);
