@@ -42,16 +42,28 @@ _docker-compose_ file if necessary.
 
 This project has 2 applications, front-end and back-endÇ 
 
-The __front-end__ is exposed on http port 801, you can check it up going to http://localhost:801/.
+## Front-end
+The front-end is exposed on http port 801, you can check it up going to http://localhost:801/.
 
-The __back-end__ is exposed on http port 800, you can check it up going to http://localhost:800/swagger/.
+## Back-end
+The back-end is exposed on http port 800, you can check it up going to http://localhost:800/swagger/.
+To authenticate with swagger you must go to path URL 
+
+## swagger Authentication
+
+> /api/Token/login
+
+* Username: GlassLewis 
+* Password: 123
+
+this route will generate a **Token** this token you must use to authorize swagger calls
 
 
 # Getting started
 
 1. Open the front end application going to http://localhost:801/.
 
-2. Navegate to the menu company. 
+2. Navegate to the menu company and create a new company. 
 
 3. Fill the company information with the requeriments of this challange and save it. 
 
