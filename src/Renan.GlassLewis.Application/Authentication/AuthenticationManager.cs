@@ -25,7 +25,7 @@ namespace Renan.GlassLewis.Application.Authentication
 
         public AuthenticationResponse Authenticate(AuthenticationRequest authenticationRequest)
         {
-            var user = Users.SingleOrDefault(x => x.Username == authenticationRequest.Username && x.Password == authenticationRequest.Password);
+            var user = Users.SingleOrDefault(x => x.Username == authenticationRequest?.Username && x.Password == authenticationRequest?.Password);
 
             if (user == null) return null;
 
