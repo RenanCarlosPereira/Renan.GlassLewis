@@ -13,8 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Renan.GlassLewis.Application\Renan.GlassLewis.Application.csproj" />
     <ProjectReference Include="..\Renan.GlassLewis.Infrastructure\Renan.GlassLewis.Infrastructure.csproj" />
-    <ProjectReference Include="..\Renan.GlassLewis.Service\Renan.GlassLewis.Service.csproj" />
+    <ProjectReference Include="..\Renan.GlassLewis.Mvc\Renan.GlassLewis.Mvc.csproj" />
   </ItemGroup>
 
 

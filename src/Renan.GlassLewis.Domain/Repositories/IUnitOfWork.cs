@@ -6,8 +6,6 @@ namespace Renan.GlassLewis.Domain.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        int Complete();
-
         Task<int> CompleteAsync(CancellationToken cancellationToken = default);
     }
 }

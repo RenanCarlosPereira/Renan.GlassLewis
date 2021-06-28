@@ -7,14 +7,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["Renan.GlassLewis.WebApi/Renan.GlassLewis.WebApi.csproj", "Renan.GlassLewis.WebApi/"]
-RUN dotnet restore "Renan.GlassLewis.WebApi/Renan.GlassLewis.WebApi.csproj"
 COPY . .
-WORKDIR "/src/Renan.GlassLewis.WebApi"
-RUN dotnet build "Renan.GlassLewis.WebApi.csproj" -c Release -o /app/build
+RUN dotnet restore "src/Renan.GlassLewis.WebApi/Renan.GlassLewis.WebApi.csproj"
+RUN dotnet build "src/Renan.GlassLewis.WebApi/Renan.GlassLewis.WebApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Renan.GlassLewis.WebApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "src/Renan.GlassLewis.WebApi/Renan.GlassLewis.WebApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

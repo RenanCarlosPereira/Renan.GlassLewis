@@ -1,10 +1,10 @@
 ﻿using FluentValidation.Results;
-using Renan.GlassLewis.Service.CompaniesUseCases.Models;
+using Renan.GlassLewis.Application.CompaniesUseCases.Models;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Renan.GlassLewis.Service.CompaniesUseCases
+namespace Renan.GlassLewis.Application.CompaniesUseCases
 {
     public interface ICompanyUseCase
     {

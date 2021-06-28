@@ -1,4 +1,4 @@
-﻿namespace Renan.GlassLewis.Service.CompaniesUseCases.Models
+﻿namespace Renan.GlassLewis.Application.CompaniesUseCases.Models
 {
     public class SelectCompanyModel
     {

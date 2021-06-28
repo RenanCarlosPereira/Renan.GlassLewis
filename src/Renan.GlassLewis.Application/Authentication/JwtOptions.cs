@@ -1,4 +1,4 @@
-﻿namespace Renan.GlassLewis.Service.Authentication
+﻿namespace Renan.GlassLewis.Application.Authentication
 {
     public class JwtOptions
     {

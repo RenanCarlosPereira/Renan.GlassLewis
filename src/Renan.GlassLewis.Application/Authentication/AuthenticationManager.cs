@@ -7,11 +7,11 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
-namespace Renan.GlassLewis.Service.Authentication
+namespace Renan.GlassLewis.Application.Authentication
 {
     internal class AuthenticationManager : IAuthenticationManager
     {
-        private static readonly List<AuthenticationRequest> _users = new List<AuthenticationRequest>
+        private static readonly List<AuthenticationRequest> Users = new List<AuthenticationRequest>
         {
             new AuthenticationRequest { Username = "GlassLewis", Password = "123" }
         };
@@ -25,7 +25,7 @@ namespace Renan.GlassLewis.Service.Authentication
 
         public AuthenticationResponse Authenticate(AuthenticationRequest authenticationRequest)
         {
-            var user = _users.SingleOrDefault(x => x.Username == authenticationRequest.Username && x.Password == authenticationRequest.Password);
+            var user = Users.SingleOrDefault(x => x.Username == authenticationRequest.Username && x.Password == authenticationRequest.Password);
 
             if (user == null) return null;
 
@@ -50,7 +50,7 @@ namespace Renan.GlassLewis.Service.Authentication
         public IEnumerable<AuthenticationRequest> GetAll()
         {
             // return users without passwords
-            return _users.Select(x =>
+            return Users.Select(x =>
             {
                 x.Password = null;
                 return x;

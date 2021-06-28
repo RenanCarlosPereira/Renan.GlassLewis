@@ -5,15 +5,26 @@ services:
     image: ${DOCKER_REGISTRY-}renanglasslewiswebapi
     hostname: glasslewis-webapi
     build:
-      context: .
-      dockerfile: ../Renan.GlassLewis.WebApi/Dockerfile
+      context: ../../
+      dockerfile: ./src/Renan.GlassLewis.WebApi/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 800:80
+   
 
   renan.glasslewis.mvc:
     image: ${DOCKER_REGISTRY-}renanglasslewismvc
     hostname: glasslewis-mvc
     build:
-      context: .
-      dockerfile: ../Renan.GlassLewis.Mvc/Dockerfile
+      context: ../../
+      dockerfile: ./src/Renan.GlassLewis.Mvc/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 801:80
 
   renan.glasslewis.sqlserver:
     container_name: glasslewis-sqlserver

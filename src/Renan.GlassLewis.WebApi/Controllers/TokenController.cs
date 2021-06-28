@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Renan.GlassLewis.Service.Authentication;
+using Renan.GlassLewis.Application.Authentication;
 
 namespace Renan.GlassLewis.WebApi.Controllers
 {
@@ -8,13 +7,11 @@ namespace Renan.GlassLewis.WebApi.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly ILogger<TokenController> _logger;
         private readonly IAuthenticationManager _service;
 
-        public TokenController(ILogger<TokenController> logger, IAuthenticationManager service)
+        public TokenController(IAuthenticationManager service)
         {
             _service = service;
-            _logger = logger;
         }
 
         [HttpPost]

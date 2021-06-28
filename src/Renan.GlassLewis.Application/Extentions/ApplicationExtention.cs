@@ -2,11 +2,11 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Renan.GlassLewis.Service.Authentication;
-using Renan.GlassLewis.Service.CompaniesUseCases;
+using Renan.GlassLewis.Application.Authentication;
+using Renan.GlassLewis.Application.CompaniesUseCases;
 using System.Text;
 
-namespace Renan.GlassLewis.Service.Extentions
+namespace Renan.GlassLewis.Application.Extentions
 {
     public static class ApplicationExtention
     {

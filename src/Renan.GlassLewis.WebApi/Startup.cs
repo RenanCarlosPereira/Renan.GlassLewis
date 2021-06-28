@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Renan.GlassLewis.Domain.Extensions;
 using Renan.GlassLewis.Infrastructure.Extensions;
-using Renan.GlassLewis.Service.Extentions;
+using Renan.GlassLewis.Application.Extentions;
 using System;
 
 namespace Renan.GlassLewis.WebApi
@@ -77,6 +77,8 @@ namespace Renan.GlassLewis.WebApi
             {
                 endpoints.MapControllers();
             });
+
+            app.EnsureMigrationOfContext();
         }
     }
 }

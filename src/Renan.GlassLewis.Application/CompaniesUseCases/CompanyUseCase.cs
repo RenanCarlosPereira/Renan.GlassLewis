@@ -1,13 +1,13 @@
 ﻿using FluentValidation.Results;
 using Renan.GlassLewis.Domain.Company;
 using Renan.GlassLewis.Domain.Repositories;
-using Renan.GlassLewis.Service.CompaniesUseCases.Models;
+using Renan.GlassLewis.Application.CompaniesUseCases.Models;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Renan.GlassLewis.Service.CompaniesUseCases
+namespace Renan.GlassLewis.Application.CompaniesUseCases
 {
     internal class CompanyUseCase : ICompanyUseCase
     {

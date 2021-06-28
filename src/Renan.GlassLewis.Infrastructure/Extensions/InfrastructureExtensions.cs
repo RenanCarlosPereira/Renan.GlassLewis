@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Renan.GlassLewis.Domain.Company;
 using Renan.GlassLewis.Domain.Repositories;
@@ -19,6 +20,13 @@ namespace Renan.GlassLewis.Infrastructure.Extensions
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             return services;
+        }
+
+        public static void EnsureMigrationOfContext(this IApplicationBuilder app)
+        {
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            using var context = serviceScope.ServiceProvider.GetRequiredService<ApplicationContext>();
+            context.Database.Migrate();
         }
     }
 }

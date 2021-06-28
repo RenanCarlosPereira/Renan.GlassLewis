@@ -1,7 +1,7 @@
 ﻿using Renan.GlassLewis.Domain.Company;
 using System.ComponentModel.DataAnnotations;
 
-namespace Renan.GlassLewis.Service.CompaniesUseCases.Models
+namespace Renan.GlassLewis.Application.CompaniesUseCases.Models
 {
     public class CreateCompanyModel
     {

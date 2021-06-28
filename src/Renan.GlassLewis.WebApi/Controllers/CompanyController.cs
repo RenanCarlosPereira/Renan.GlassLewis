@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Renan.GlassLewis.Service.CompaniesUseCases;
-using Renan.GlassLewis.Service.CompaniesUseCases.Models;
+using Renan.GlassLewis.Application.CompaniesUseCases;
+using Renan.GlassLewis.Application.CompaniesUseCases.Models;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
