@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Applicatio
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Application.Tests", "test\Renan.GlassLewis.Application.Tests\Renan.GlassLewis.Application.Tests.csproj", "{AD9F5B75-4FA6-434A-980E-B541BE201741}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renan.GlassLewis.Integrated.Tests", "test\Renan.GlassLewis.Integrated.Tests\Renan.GlassLewis.Integrated.Tests.csproj", "{04E0C9B6-6ABA-48B2-8B78-85198B09C790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,6 +75,10 @@ Global
 		{AD9F5B75-4FA6-434A-980E-B541BE201741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD9F5B75-4FA6-434A-980E-B541BE201741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD9F5B75-4FA6-434A-980E-B541BE201741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E0C9B6-6ABA-48B2-8B78-85198B09C790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E0C9B6-6ABA-48B2-8B78-85198B09C790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E0C9B6-6ABA-48B2-8B78-85198B09C790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E0C9B6-6ABA-48B2-8B78-85198B09C790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,6 +94,7 @@ Global
 		{D7E882BD-9FD6-4165-A38B-40E60873F45D} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
 		{8058D302-19AB-4206-A93F-F812E0A4B974} = {360781A8-8A0E-4B1A-A092-F28963ED3CB3}
 		{AD9F5B75-4FA6-434A-980E-B541BE201741} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
+		{04E0C9B6-6ABA-48B2-8B78-85198B09C790} = {5DD00149-0CF6-48D0-B02A-E09DF8A1DAA8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {915DE3AF-9B8E-49E7-91B9-3857E4067C50}

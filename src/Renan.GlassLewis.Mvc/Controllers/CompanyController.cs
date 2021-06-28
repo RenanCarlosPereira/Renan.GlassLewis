@@ -70,7 +70,7 @@ namespace Renan.GlassLewis.Mvc.Controllers
             {
                 var json = JsonSerializer.Serialize(model);
                 using var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var httpResponse = await _httpClient.PostAsync("/Company/Create", content, cancellationToken);
+                var httpResponse = await _httpClient.PostAsync("/Company", content, cancellationToken);
 
                 await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
 
@@ -121,7 +121,7 @@ namespace Renan.GlassLewis.Mvc.Controllers
             {
                 var json = JsonSerializer.Serialize(model);
                 using var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var httpResponse = await _httpClient.PostAsync($"/Company/Update/{id}", content, cancellationToken);
+                var httpResponse = await _httpClient.PutAsync($"/Company/{id}", content, cancellationToken);
 
                 await using var stream = await httpResponse.Content.ReadAsStreamAsync(cancellationToken);
 

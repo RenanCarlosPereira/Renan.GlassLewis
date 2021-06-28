@@ -1,5 +1,6 @@
 ﻿using Renan.GlassLewis.Domain.Company;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Renan.GlassLewis.Application.CompaniesUseCases.Models
 {

@@ -30,7 +30,7 @@ namespace Renan.GlassLewis.WebApi.Controllers
             return _companyUseCase.GetAllCompaniesAsync(cancellationToken);
         }
 
-        [HttpGet("Value/{isin}")]
+        [HttpGet("isin/{isin}")]
         [ActionName(nameof(GetByIsinAsync))]
         public async ValueTask<IActionResult> GetByIsinAsync([FromRoute] string isin, CancellationToken cancellationToken)
         {
@@ -50,28 +50,30 @@ namespace Renan.GlassLewis.WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPost("Create")]
+        [HttpPost]
         [ActionName(nameof(CreateCompanyAsync))]
         public async ValueTask<IActionResult> CreateCompanyAsync([FromBody] CreateCompanyModel company, CancellationToken cancellationToken)
         {
             var result = await _companyUseCase.CreateCompanyAsync(company, cancellationToken);
+            var companyModel = await _companyUseCase.GetByIsinAsync(company.Isin, cancellationToken);
 
             if (result.IsValid)
-                return CreatedAtAction(nameof(GetByIsinAsync), new { isin = company.Isin }, default);
+                return CreatedAtAction(nameof(GetByIdAsync), new { companyModel.Id }, companyModel);
 
             result.Errors.ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
 
             return _options.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
 
-        [HttpPost("Update/{id}")]
+        [HttpPut("{id}")]
         [ActionName(nameof(UpdateCompanyAsync))]
         public async ValueTask<IActionResult> UpdateCompanyAsync([FromRoute] int id, [FromBody] UpdateCompanyModel company, CancellationToken cancellationToken)
         {
             var result = await _companyUseCase.UpdateCompanyAsync(id, company, cancellationToken);
+            var companyModel = await _companyUseCase.GetByIsinAsync(company.Isin, cancellationToken);
 
             if (result.IsValid)
-                return CreatedAtAction(nameof(GetByIsinAsync), new { isin = company.Isin }, default);
+                return CreatedAtAction(nameof(GetByIdAsync), new { companyModel.Id }, companyModel);
 
             result.Errors.ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
 
