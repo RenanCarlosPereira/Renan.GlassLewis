@@ -50,7 +50,7 @@ The back-end is ASPNET CORE WebAPI exposed on http port 800, you can check it up
 
 
 ## swagger Authentication
-To authenticate with swagger you must go to path URL 
+To authenticate with swagger you call a **Post** method to fallowing URL 
 
 > /api/Token/login
 
